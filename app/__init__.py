@@ -21,6 +21,11 @@ class Cache(db.Model):
     type = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
+@app.route('/', methods=['GET'])
+def getHome():
+    response = 'test'
+    return response
+
 # run function parameter (integer) refers to type field in cache table
 @app.route('/books', methods=['GET'])
 def getBooks():
