@@ -3,10 +3,11 @@ import pymysql
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
+from sqlalchemy import func, create_engine
 
 # Init app, config DB & cors
 app = Flask(__name__)
+e = create_engine('mysql://b62e924f512fdb:f8ffe693@us-cdbr-iron-east-05.cleardb.net/heroku_5b91fdc12b747b8', pool_recycle=1800)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://b62e924f512fdb:f8ffe693@us-cdbr-iron-east-05.cleardb.net/heroku_5b91fdc12b747b8'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_POOL_RECYCLE'] = 3600
