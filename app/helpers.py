@@ -19,7 +19,10 @@ def run(type_int):
         type_to_fetch = "jeuxvideo"
 
     # DB query (cache table)
-    queryTest = Cache.query.filter_by(type=type_int).first()
+    try:
+        queryTest = Cache.query.filter_by(type=type_int).first()
+    except AttributeError:
+        queryTest = Cache.query.filter_by(type=type_int).first()
 
     if queryTest is not None and queryTest.data is not None:
         since = datetime.now() - timedelta(hours=96)
@@ -32,17 +35,27 @@ def run(type_int):
             print('from scrap')
             itemsList = fetchDatas(type_to_fetch)
             # Update data in DB
-            db.session.query(Cache).filter_by(type=type_int).update({'data': json.dumps(itemsList)})
-            db.session.commit()
+            try:
+                db.session.query(Cache).filter_by(type=type_int).update({'data': json.dumps(itemsList)})
+                db.session.commit()
+            except AttributeError:
+                db.session.query(Cache).filter_by(type=type_int).update({'data': json.dumps(itemsList)})
+                db.session.commit()
             return json.dumps(itemsList)
     else:
         print('from DB 1st insert')
         # API call from helpers.py
         itemsList = fetchDatas(type_to_fetch)
         # DB insert
-        cache = Cache(data=json.dumps(itemsList), type=type_int)
-        db.session.add(cache)
-        db.session.commit()
+        try:
+            cache = Cache(data=json.dumps(itemsList), type=type_int)
+            db.session.add(cache)
+            db.session.commit()
+        except AttributeError:
+            cache = Cache(data=json.dumps(itemsList), type=type_int)
+            db.session.add(cache)
+            db.session.commit()
+
         return json.dumps(itemsList)
 
 
