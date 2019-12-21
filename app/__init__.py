@@ -12,8 +12,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_POOL_RECYCLE'] = 299
 app.config['SQLALCHEMY_POOL_TIMEOUT'] = 20
 
-# db = SQLAlchemy(app)
-db = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], pool_timeout=20, pool_recycle=299)
+db = SQLAlchemy(app)
 pymysql.install_as_MySQLdb()
 CORS(app)
 
