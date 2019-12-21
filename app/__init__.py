@@ -7,15 +7,15 @@ from sqlalchemy import func, create_engine
 
 # Init app, config DB & cors
 app = Flask(__name__)
-e = create_engine('mysql://b62e924f512fdb:f8ffe693@us-cdbr-iron-east-05.cleardb.net/heroku_5b91fdc12b747b8', pool_recycle=1800)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://b62e924f512fdb:f8ffe693@us-cdbr-iron-east-05.cleardb.net/heroku_5b91fdc12b747b8'
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SQLALCHEMY_POOL_RECYCLE'] = 3600
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 299
+app.config['SQLALCHEMY_POOL_TIMEOUT'] = 20
 
 db = SQLAlchemy(app)
+# db = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], pool_timeout=20, pool_recycle=299)
 pymysql.install_as_MySQLdb()
 CORS(app)
-db.session.rollback()
 
 # DB Model
 class Cache(db.Model):
