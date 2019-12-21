@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://b62e924f512fdb:f8ffe693@us-cdbr-iron-east-05.cleardb.net/heroku_5b91fdc12b747b8'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_POOL_RECYCLE'] = 299
-app.config['SQLALCHEMY_POOL_TIMEOUT'] = 20
+app.config['SQLALCHEMY_POOL_TIMEOUT'] = 600
 
 db = SQLAlchemy(app)
 pymysql.install_as_MySQLdb()
